@@ -367,7 +367,7 @@ def main(param_options):
     set_logger(param_options)
 
     modules = factory.load_modules(param_options["packages"], param_options["output_dir"])
-
+    
     for m in modules:
         classes = factory.load_classes(m, param_options["OS"], param_options["release"])
         for cl in classes:

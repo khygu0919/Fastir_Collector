@@ -360,3 +360,27 @@ class _FS(object):
                 zip_archive(outlook_pst_files, self.output_dir, 'pst', self.logger)
             if len(outlook_ost_files) > 0:
                 zip_archive(outlook_ost_files, self.output_dir, 'ost', self.logger)
+
+##################modified by KHG
+    def jump_file_list(self):
+        import csv
+        count=1
+        csv_file = open("jumpflie.csv",'w')
+        result = csv.writer(csv_file,delimiter=',',Lineterminater='\n')
+        result.writerow('index','Filename','Extension')
+        userhome = os.path.expanduser('~')
+        userstring = str(userhome)
+        os.mkdir('./JumpFile')
+        filenames = os.listdir(userstring+"\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\AutomaticDestinations")
+        for filename in filenames:
+                f_name = os.path.splitext(filename)[0]
+                f_ext = os.path.splitext(full_filename)[-1].split(",")[0]
+                result.writerow(count, f_name,f_ext)
+                count +=1
+        filenames = os.listdir(userstring+"\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\CustomDestinations")
+        for filename in filenames:
+                f_name = os.path.splitext(filename)[0]
+                f_ext = os.path.splitext(full_filename)[-1].split(",")[0]
+                result.writerow(count, f_name,f_ext)
+                count +=1
+        
